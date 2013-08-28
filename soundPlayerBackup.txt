@@ -1,0 +1,162 @@
+package com.qmul.tdgame;
+
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+
+import com.qmul.tdgame.util.GameResources;
+
+public class SoundPlayer {
+
+
+	private static final String TAG = SoundPlayer.class.getSimpleName();
+	public static final int BUTTON_PRESSED = R.raw.btnpressed;
+	
+	private static SoundPlayer soundManager;
+	private MediaPlayer mediaPlayer;
+	private int currentTrack;
+	
+	private boolean managerStarted;
+	private boolean paused;
+	private OnCompletionListener completionListener;
+	
+	
+	private SoundPlayer(){
+		currentTrack = R.raw.prep;
+		mediaPlayer = MediaPlayer.create(GameResources.currentContext, currentTrack);
+		managerStarted = true;
+		completionListener = new OnCompletionListener() {
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				mp.start();
+			}
+		};	
+		mediaPlayer.setOnCompletionListener(completionListener);
+	}
+	
+	
+	public void play(){
+		paused = false;
+		mediaPlayer.start();
+	}
+	
+	
+	public void pause(){
+		paused = true;
+		mediaPlayer.pause();
+	}
+	
+	
+	public void stop(){
+		paused = true;
+		mediaPlayer.release();
+	}
+	
+
+	public void restart() {
+		if(!managerStarted){
+			managerStarted = true;
+			mediaPlayer = MediaPlayer.create(GameResources.currentContext, currentTrack);
+		}
+		play();
+	}
+	
+	
+	public void destroy(){
+		if(mediaPlayer.isPlaying())
+			mediaPlayer.stop();
+		paused = true;
+		managerStarted = false;
+		mediaPlayer.reset();
+	}
+	
+	public void die(){
+		
+	}
+	
+	public void setTune(int id){
+		mediaPlayer = MediaPlayer.create(GameResources.currentContext, id);
+		mediaPlayer.setOnCompletionListener(completionListener);
+	}
+	
+	public static SoundPlayer getInstance(){
+		if(soundManager == null)
+			soundManager = new SoundPlayer();
+		return soundManager;
+	}
+
+	/**
+	 * @return the paused
+	 */
+	public final boolean isPaused() {
+		return paused;
+	}
+
+
+	/**
+	 * @param paused the paused to set
+	 */
+	public final void setPaused(boolean paused) {
+		this.paused = paused;
+	}
+
+	
+	/**
+	 * @return the currentTrack
+	 */
+	public final int getCurrentTrack() {
+		return currentTrack;
+	}
+
+
+	/**
+	 * @param currentTrack the currentTrack to set
+	 */
+	public final void setCurrentTrack(int currentTrack) {
+		this.currentTrack = currentTrack;
+	}
+
+
+	/**
+	 * @return the managerStarted
+	 */
+	public final boolean isManagerStarted() {
+		return managerStarted;
+	}
+
+
+	/**
+	 * @param managerStarted the managerStarted to set
+	 */
+	public final void setManagerStarted(boolean managerStarted) {
+		this.managerStarted = managerStarted;
+	}
+	
+	
+	/**
+	 * @return the mediaPlayer
+	 */
+	public final MediaPlayer getMediaPlayer() {
+		return mediaPlayer;
+	}
+
+
+	/**
+	 * @param mediaPlayer the mediaPlayer to set
+	 */
+	public final void setMediaPlayer(MediaPlayer mediaPlayer) {
+		this.mediaPlayer = mediaPlayer;
+	}
+
+
+	public static class SFX{
+		public static int SOUND_INCOMING = 0;
+		public static int SOUND_SOLD = 0;
+		public static int SOUND_UPGRADE = 0;
+		
+		public static int SOUND_SHOT = 0;
+		public static int SOUND_ROCKET = 0;
+		
+		public static int SOUND_ERROR = 0;	
+	}
+}

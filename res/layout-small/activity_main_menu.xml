@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_menu"
+    tools:context=".MainMenu" >
+
+    <LinearLayout
+        android:id="@+id/mainContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        tools:ignore="UselessParent" >
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="86dp"
+            android:layout_height="28dp"
+            android:background="@null"
+            android:onClick="onNewGame"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_newgame" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="86dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:onClick="onTutorial"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_tutorial" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="86dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:onClick="onScores"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_scores" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="86dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:onClick="onQuit"
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_quit" />
+    </LinearLayout>
+
+</RelativeLayout>
